@@ -3,7 +3,7 @@ About r-ordinal
 
 Home: https://github.com/runehaubo/ordinal
 
-Package license: GPL (>= 2)
+Package license: GPL-2.0-or-later
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-ordinal-feedstock/blob/master/LICENSE.txt)
 
