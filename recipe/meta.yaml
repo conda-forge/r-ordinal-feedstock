@@ -49,7 +49,7 @@ test:
 
 about:
   home: https://github.com/runehaubo/ordinal
-  license: GPL (>= 2)
+  license: GPL-2.0-or-later
   summary: Implementation of cumulative link (mixed) models also known as ordered regression
     models, proportional odds models, proportional hazards models for grouped survival
     times and ordered logit/probit/... models. Estimation is via maximum likelihood
