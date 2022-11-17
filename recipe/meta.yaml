@@ -1,4 +1,4 @@
-{% set version = "2019.12-10" %}
+{% set version = "2022.11-16" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/ordinal_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ordinal/ordinal_{{ version }}.tar.gz
-  sha256: 7a41e7b7e852a8fa3e911f8859d36e5709ccec5ca42ee3de14a813b7aaac7725
+  sha256: 5488ad1dfa531a09d017d68d7393d376c8bc49cceeaa6a3e5f7d57b99168d493
 
 build:
-  merge_build_host: True  # [win]
-  number: 2
+  merge_build_host: true  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -28,10 +28,12 @@ requirements:
     - {{ posix }}sed               # [win]
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
     - r-mass
     - r-matrix
+    - r-nlme
     - r-numderiv
     - r-ucminf
   run:
@@ -39,6 +41,7 @@ requirements:
     - {{ native }}gcc-libs         # [win]
     - r-mass
     - r-matrix
+    - r-nlme
     - r-numderiv
     - r-ucminf
 
@@ -50,17 +53,12 @@ test:
 about:
   home: https://github.com/runehaubo/ordinal
   license: GPL-2.0-or-later
-  summary: Implementation of cumulative link (mixed) models also known as ordered regression
-    models, proportional odds models, proportional hazards models for grouped survival
-    times and ordered logit/probit/... models. Estimation is via maximum likelihood
-    and mixed models are fitted with the Laplace approximation and adaptive Gauss-Hermite
-    quadrature. Multiple random effect terms are allowed and they may be nested, crossed
-    or partially nested/crossed. Restrictions of symmetry and equidistance can be imposed
-    on the thresholds (cut-points/intercepts). Standard model methods are available
-    (summary, anova, drop-methods, step, confint, predict etc.) in addition to profile
-    methods and slice methods for visualizing the likelihood function and checking convergence.
+  summary: Implementation of cumulative link (mixed) models also known as ordered regression models, proportional odds models, proportional hazards models for grouped survival times and ordered logit/probit/... models. Estimation is via maximum likelihood and mixed models are fitted with the Laplace approximation and adaptive
+    Gauss-Hermite quadrature. Multiple random effect terms are allowed and they may be nested, crossed or partially nested/crossed. Restrictions of symmetry and equidistance can be imposed on the thresholds (cut-points/intercepts). Standard model methods are available (summary, anova, drop-methods, step, confint, predict
+    etc.) in addition to profile methods and slice methods for visualizing the likelihood function and checking convergence.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
