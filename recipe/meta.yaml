@@ -28,10 +28,12 @@ requirements:
     - {{ posix }}sed               # [win]
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
     - r-mass
     - r-matrix
+    - r-nlme
     - r-numderiv
     - r-ucminf
   run:
@@ -39,6 +41,7 @@ requirements:
     - {{ native }}gcc-libs         # [win]
     - r-mass
     - r-matrix
+    - r-nlme
     - r-numderiv
     - r-ucminf
 
@@ -54,7 +57,8 @@ about:
     Gauss-Hermite quadrature. Multiple random effect terms are allowed and they may be nested, crossed or partially nested/crossed. Restrictions of symmetry and equidistance can be imposed on the thresholds (cut-points/intercepts). Standard model methods are available (summary, anova, drop-methods, step, confint, predict
     etc.) in addition to profile methods and slice methods for visualizing the likelihood function and checking convergence.
   license_family: GPL3
-  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
