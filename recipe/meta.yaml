@@ -12,29 +12,32 @@ source:
   sha256: 2c9dcfa438c964ff1825033d0759d25f404a2a4c5252b81e40f19cffc18e38b1
 
 build:
-  number: 0
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
     - cross-r-base {{ r_base }}  # [build_platform != target_platform]
-    - r-ucminf                   # [build_platform != target_platform]
-    - r-numderiv                 # [build_platform != target_platform]
+    - r-mass                     # [build_platform != target_platform]
     - r-matrix                   # [build_platform != target_platform]
     - r-nlme                     # [build_platform != target_platform]
-    - r-mass                     # [build_platform != target_platform]
-    - {{ compiler('c') }}              # [not win]
-    - {{ stdlib("c") }}                # [not win]
-    - {{ compiler('m2w64_c') }}        # [win]
-    - {{ stdlib("m2w64_c") }}          # [win]
-    - {{ posix }}filesystem        # [win]
+    - r-numderiv                 # [build_platform != target_platform]
+    - r-ucminf                   # [build_platform != target_platform]
+    - {{ compiler('c') }}        # [not win]
+    - {{ stdlib("c") }}          # [not win]
+    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ stdlib("m2w64_c") }}    # [win]
+    - {{ posix }}filesystem      # [win]
     - {{ posix }}make
-    - {{ posix }}sed               # [win]
-    - {{ posix }}coreutils         # [win]
-    - {{ posix }}zip               # [win]
-    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+    - {{ posix }}sed             # [win]
+    - {{ posix }}coreutils       # [win]
+    - {{ posix }}zip             # [win]
   host:
     - r-base
     - r-mass
@@ -64,29 +67,8 @@ about:
   license_family: GPL3
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-
-# Package: ordinal
-# Type: Package
-# Title: Regression Models for Ordinal Data
-# Version: 2019.4-25
-# Date: 2019-04-25
-# Authors@R: person(given="Rune Haubo Bojesen", family="Christensen", email="rune.haubo@gmail.com", role=c("aut", "cre"))
-# LazyData: true
-# ByteCompile: yes
-# Depends: R (>= 2.13.0), stats, methods
-# Imports: ucminf, MASS, Matrix, numDeriv
-# Suggests: lme4, nnet, xtable, testthat (>= 0.8), tools
-# Description: Implementation of cumulative link (mixed) models also known as ordered regression models, proportional odds models, proportional hazards models for grouped survival times and ordered logit/probit/... models. Estimation is via maximum likelihood and mixed models are fitted with the Laplace approximation and adaptive Gauss-Hermite quadrature. Multiple random effect terms are allowed and they may be nested, crossed or partially nested/crossed. Restrictions of symmetry and equidistance can be imposed on the thresholds (cut-points/intercepts). Standard model methods are available (summary, anova, drop-methods, step, confint, predict etc.) in addition to profile methods and slice methods for visualizing the likelihood function and checking convergence.
-# License: GPL (>= 2)
-# NeedsCompilation: yes
-# URL: https://github.com/runehaubo/ordinal
-# BugReports: https://github.com/runehaubo/ordinal/issues
-# Packaged: 2019-04-25 18:44:48 UTC; rhbc
-# Author: Rune Haubo Bojesen Christensen [aut, cre]
-# Maintainer: Rune Haubo Bojesen Christensen <rune.haubo@gmail.com>
-# Repository: CRAN
-# Date/Publication: 2019-04-25 20:30:04 UTC
